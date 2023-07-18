@@ -1,0 +1,54 @@
+.page-wrapper {
+    background-image: url("../img/weatherbackground2.webp");
+}
+
+.card-back:hover {
+    border: 5px solid white;
+}
+
+.icon {
+    animation: pulse;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+}
+@keyframes pulse {
+    0% {
+    width: 62px;
+    height: 84px;
+}
+    50% {
+        width: 93px;
+        height: 120px;
+    }
+    100% {
+        width: 62px;
+        height: 84px;
+    }
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+#search-btn:hover {
+    padding: 3px;
+
+}
+.text-shadow {
+    text-shadow: #FFF 1px 0 10px;
+    animation: flash;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+}
+@keyframes flash {
+    0% {
+      text-shadow: #FFF 0px 0 0px;
+    }
+    50% {
+        text-shadow: #FFF 1px 0 10px;
+    }
+    100% {
+        text-shadow: #FFF 0px 0 0px;
+    }
+}
