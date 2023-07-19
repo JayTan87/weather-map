@@ -8,6 +8,7 @@ $(() => {
 	const userInput = document.querySelector('#userInput')
 	const ALAMO_COORDINATES = ['29.4260', '-98.4861'];
 	let cardGen = document.querySelector('.card-wrapper')
+	let cityGen = document.querySelector('.current-cty')
 
 
 	// Functions
@@ -21,7 +22,7 @@ $(() => {
 		const mapOptions = {
 			container: 'map',
 			style: 'mapbox://style,s/mapbox/satellite-streets-v12',
-			zoom: 10,
+			zoom: 5,
 			center: [-98.4916, 29.4252]
 		}
 		return new mapboxgl.Map(mapOptions)
@@ -77,17 +78,22 @@ $(() => {
 	function updateWeather(lat, lon) {
 		$.ajax(getWeatherURL(lat, lon)).done(data => {
 			removeWeather()
+			removeCity()
 			renderWeather(data);
+			renderCurrentCity(data);
 		}).fail(console.error);
 	}
 	function removeWeather() {
 			$('div.card').remove();
 	}
+	function removeCity() {
+		$('div.city').remove();
+	}
 	// }
 	function renderWeather(data) {
 		for (let i = 0; i < data.list.length; i += 8) {
 			let weatherBody = document.createElement('div')
-			weatherBody.classList.add("card","bg-primary","bg-gradient","bg-opacity-25","increase", "card-back");
+			weatherBody.classList.add("card","bg-primary","bg-gradient","bg-opacity-25", "card-back");
 			console.log(data.list[i].main.temp);
 			let weatherImage = "";
 			if (data.list[i].weather[0].main === "Sunny") {
@@ -119,7 +125,14 @@ $(() => {
 			cardGen.appendChild(weatherBody);
 		}
 	}
-
+function renderCurrentCity(data){
+	let currentCity = document.createElement('div')
+	currentCity.classList.add("city");
+	currentCity.innerHTML = `
+	<h1>${data.city.name}</h1>
+	`;
+	cityGen.appendChild(currentCity);
+}
 	document.querySelector('#search-btn').addEventListener('click', () => {
 		searchInput(userInput.value, map);
 	});
